@@ -1,6 +1,6 @@
-****************************
+***************
 Mopidy-SiriusXM
-****************************
+***************
 
 .. image:: https://img.shields.io/pypi/v/Mopidy-SiriusXM.svg?style=flat
     :target: https://pypi.python.org/pypi/Mopidy-SiriusXM/
@@ -18,7 +18,9 @@ Mopidy-SiriusXM
    :target: https://coveralls.io/r/kdbdallas/mopidy-siriusxm
    :alt: Test coverage
 
-Mopidy extension for listening to Sirius XM internet radio (an active Sirius XM internet radio subscription is required)
+
+
+Mopidy extension for listening to Sirius XM internet radio (an active Sirius XM internet radio subscription is required)
 
 
 Installation
@@ -53,6 +55,6 @@ Changelog
 =========
 
 v0.1.0 (UNRELEASED)
-----------------------------------------
+-------------------
 
 - Initial release.
