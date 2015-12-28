@@ -29,9 +29,6 @@ setup(
         'Pykka >= 1.1',
         'pysiriusxm >= 0.1.0',
     ],
-    dependency_links=[
-        'https://github.com/kdbdallas/pysiriusxm/tarball/master#egg=pysiriusxm',
-    ],
     entry_points={
         'mopidy.ext': [
             'siriusxm = mopidy_siriusxm:Extension',
