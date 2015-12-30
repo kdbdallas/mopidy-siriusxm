@@ -46,7 +46,8 @@ class SiriusXM(pykka.ThreadingActor, backend.Backend):
         remember_me = self._config['siriusxm']['remember_me']
 
         authenticate = Auth(self._config)
-        Auth.login(authenticate, username, password, remember_me)
+        authenticate.login(username, password, remember_me)
+        #Auth.login(username, password, remember_me)
 
     def on_stop(self):
         logger.debug('Logging out of Sirius XM')
@@ -77,14 +78,14 @@ class SiriusXM(pykka.ThreadingActor, backend.Backend):
 
         siriusXM_config.settings_location = ext.get_data_dir(config)
 
-        proxy_uri = httpclient.format_proxy(config['proxy'], auth=False)
+        proxy_uri = httpclient.format_proxy(config['siriusxm']['proxy'], auth=False)
 
         if proxy_uri is not None:
             logger.debug('Connecting to Sirius XM through proxy: %s', proxy_uri)
 
         siriusXM_config.proxy = proxy_uri
-        siriusXM_config.proxy_username = config['proxy'].get('username')
-        siriusXM_config.proxy_password = config['proxy'].get('password')
+        siriusXM_config.proxy_username = config['siriusxm']['proxy_username']
+        siriusXM_config.proxy_password = config['siriusxm']['proxy_password']
 
         return siriusXM_config
 
