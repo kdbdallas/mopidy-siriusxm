@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 import logging
 import threading
+import types
 import pykka
 
 import siriusxm
@@ -22,7 +23,7 @@ class SiriusXM(pykka.ThreadingActor, backend.Backend):
     def __init__(self, config, audio):
         super(SiriusXM, self).__init__()
 
-        self.config = config
+        self._config = config
         self._audio = audio
         self._actor_proxy = None
         self._session = None
@@ -40,11 +41,11 @@ class SiriusXM(pykka.ThreadingActor, backend.Backend):
         # self._event_loop = siriusXM.EventLoop(self._session)
         # self._event_loop.start()
 
-        username = self.config['siriusxm']['username']
-        password = self.config['siriusxm']['password']
-        remember_me = self.config['siriusxm']['remember_me']
+        username = self._config['siriusxm']['username']
+        password = self._config['siriusxm']['password']
+        remember_me = self._config['siriusxm']['remember_me']
 
-        authenticate = siriusxm.auth(self.config)
+        authenticate = siriusxm.auth(self._config)
         authenticate.login(username, password, remember_me)
 
     def on_stop(self):
@@ -119,6 +120,11 @@ class SiriusXM(pykka.ThreadingActor, backend.Backend):
 
     # def on_play_token_lost(session, backend):
     # Called from the pysiriusxm event loop, and not in an actor context.
+
+    def __getattr__(self, attrname):
+        print('Trace: ' + attrname)
+
+        return getattr(self._config, attrname)
 
 # logger.debug('Sirius XM play token lost')
 #    backend.on_play_token_lost()
