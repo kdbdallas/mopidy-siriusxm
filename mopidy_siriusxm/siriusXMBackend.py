@@ -5,7 +5,6 @@ import threading
 import pykka
 
 import siriusxm
-from siriusxm.auth import Auth
 
 from mopidy import backend, httpclient
 
@@ -45,9 +44,8 @@ class SiriusXM(pykka.ThreadingActor, backend.Backend):
         password = self._config['siriusxm']['password']
         remember_me = self._config['siriusxm']['remember_me']
 
-        authenticate = Auth(self._config)
+        authenticate = siriusxm.auth(self._config)
         authenticate.login(username, password, remember_me)
-        #Auth.login(username, password, remember_me)
 
     def on_stop(self):
         logger.debug('Logging out of Sirius XM')
@@ -69,7 +67,7 @@ class SiriusXM(pykka.ThreadingActor, backend.Backend):
 
     def _get_siriusXM_config(self, config):
         ext = Extension()
-        siriusXM_config = siriusxm.Config()
+        siriusXM_config = siriusxm.config()
 
         if config['siriusxm']['allow_cache']:
             siriusXM_config.cache_location = ext.get_cache_dir(config)
