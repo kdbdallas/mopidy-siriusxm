@@ -22,7 +22,7 @@ class SiriusXM(pykka.ThreadingActor, backend.Backend):
     def __init__(self, config, audio):
         super(SiriusXM, self).__init__()
 
-        self._config = config
+        self.config = config
         self._audio = audio
         self._actor_proxy = None
         self._session = None
@@ -40,11 +40,11 @@ class SiriusXM(pykka.ThreadingActor, backend.Backend):
         # self._event_loop = siriusXM.EventLoop(self._session)
         # self._event_loop.start()
 
-        username = self._config['siriusxm']['username']
-        password = self._config['siriusxm']['password']
-        remember_me = self._config['siriusxm']['remember_me']
+        username = self.config['siriusxm']['username']
+        password = self.config['siriusxm']['password']
+        remember_me = self.config['siriusxm']['remember_me']
 
-        authenticate = siriusxm.auth(self._config)
+        authenticate = siriusxm.auth(self.config)
         authenticate.login(username, password, remember_me)
 
     def on_stop(self):
